@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulkhead Systems | Seaworthy Infrastructure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bulkhead: {
+                            deep: '#0a192f',
+                            steel: '#8892b0',
+                            slate: '#112240',
+                            orange: '#ff6b35',
+                            white: '#e6f1ff',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Oswald', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #020c1b;
+            color: #e6f1ff;
+        }
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0,0,0,0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 10s linear infinite;
+        }
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100%; }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-bulkhead-orange selection:text-white">
+
+    <!-- Hero Section -->
+    <div class="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+             <!-- Abstract Grid Background -->
+            <div class="absolute inset-0" style="background-image: radial-gradient(#112240 1px, transparent 1px); background-size: 40px 40px; opacity: 0.3;"></div>
+            <div class="scanline"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl w-full">
+            <p class="font-mono text-bulkhead-orange mb-4 tracking-widest text-sm">EST. 2025 // PROJECT ANTIGRAVITY</p>
+            <h1 class="text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-6 text-white leading-none">
+                Bulkhead<br><span class="text-bulkhead-steel">Systems.</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-bulkhead-steel max-w-2xl font-light mb-10 border-l-4 border-bulkhead-orange pl-6">
+                Seaworthy Infrastructure for a Chaotic Ocean. <br>
+                <span class="text-sm font-mono mt-2 block opacity-70">We build Cathedrals of Steel.</span>
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-4 font-mono text-sm">
+                <a href="#manifesto" class="px-8 py-3 border border-bulkhead-orange text-bulkhead-orange hover:bg-bulkhead-orange hover:text-white transition-all duration-300 uppercase tracking-wider">
+                    Read Manifesto
+                </a>
+                <a href="#stack" class="px-8 py-3 border border-bulkhead-steel text-bulkhead-steel hover:bg-bulkhead-slate transition-all duration-300 uppercase tracking-wider">
+                    Inspect The Hull
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manifesto Section -->
+    <section id="manifesto" class="py-20 px-6 bg-bulkhead-slate/30 border-y border-bulkhead-slate">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold uppercase mb-12 flex items-center gap-4">
+                <span class="text-bulkhead-orange">01.</span> The Philosophy
+            </h2>
+            
+            <div class="space-y-12">
+                <!-- Principle 1 -->
+                <div class="group">
+                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">I. The Drydock Standard</h3>
+                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
+                        We treat every session as a refit. If we board a server, we leave it structurally sounder than we found it. Technical debt is rust; we do not paint over it. We grind it down and weld it shut.
+                    </p>
+                </div>
+
+                <!-- Principle 2 -->
+                <div class="group">
+                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">II. Managed Mutation</h3>
+                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
+                        The Code is the Captain. We never fix a server manually via SSH. Idempotency is Law. We do not burn down the ship to fix a leaking pipe; we use Ansible to apply precise, idempotent repairs.
+                    </p>
+                </div>
+
+                <!-- Principle 3 -->
+                <div class="group">
+                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">III. Compartmentalization</h3>
+                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
+                        A ship without bulkheads is a coffin. Isolation via KVM. Containment via Namespaces. Identity via Authentik. No one enters the engine room without SSO.
+                    </p>
+                </div>
+
+                <!-- Principle 4 -->
+                 <div class="group">
+                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">IV. Architecture First</h3>
+                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
+                        We are the Architects; AI is the Workforce. We define the Intent and the Vibe. We review every line against the "Purist" standard. We do not commit what we do not understand.
+                    </p>
+                </div>
+
+                <!-- Principle 5 -->
+                <div class="group">
+                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">V. Documentation is the Blueprint</h3>
+                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
+                        If the README is outdated, the code is broken. If it's not in an ADR, it didn't happen. Documentation is the primary artifact.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Stack Section -->
+    <section id="stack" class="py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold uppercase mb-12 flex items-center gap-4">
+                <span class="text-bulkhead-orange">02.</span> The Hull
+            </h2>
+            <p class="text-bulkhead-steel mb-8 font-mono">Substrate-First. Open Standards. Heavy Duty.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Card -->
+                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
+                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Steel (Substrate)</div>
+                    <div class="text-xl font-bold text-white">KVM / Libvirt</div>
+                </div>
+
+                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
+                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Plating (OS)</div>
+                    <div class="text-xl font-bold text-white">Ubuntu 24.04</div>
+                </div>
+
+                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
+                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Shipyard (Provisioning)</div>
+                    <div class="text-xl font-bold text-white">OpenTofu</div>
+                </div>
+
+                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
+                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Welder (Config)</div>
+                    <div class="text-xl font-bold text-white">Ansible</div>
+                </div>
+
+                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
+                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Engine (Orchestration)</div>
+                    <div class="text-xl font-bold text-white">K3s</div>
+                </div>
+
+                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
+                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Radar (Observability)</div>
+                    <div class="text-xl font-bold text-white">LGTM Stack</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-bulkhead-slate mt-12 text-center">
+        <p class="font-mono text-sm text-bulkhead-steel">
+            EXIT ZERO. <br>
+            <span class="opacity-50">Signed, The Architect.</span>
+        </p>
+    </footer>
+
+</body>
+</html>
