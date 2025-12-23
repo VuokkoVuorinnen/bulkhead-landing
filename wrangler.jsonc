@@ -1,0 +1,7 @@
+{
+  "name": "bulkhead-landing",
+  "compatibility_date": "2025-12-23",
+  "assets": {
+    "directory": "./" 
+  }
+}
