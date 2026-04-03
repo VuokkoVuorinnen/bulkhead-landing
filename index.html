@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Bulkhead is a mysterious North Sea signal about pressure-rated systems, machine crews, and things that remain upright in bad weather.">
     <title>Bulkhead | Pressure-Rated Signals</title>
+    <script defer src="https://umami.vuokko.be/script.js" data-website-id="bafc7c90-559b-4a86-a007-2335a064b9b1"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -227,6 +228,67 @@
             font-weight: 500;
         }
 
+        .hero-mark {
+            position: relative;
+            margin-top: 1rem;
+            padding: 0.8rem 0 0.45rem;
+        }
+
+        .hero-mark::after {
+            content: "";
+            position: absolute;
+            inset: 18% 18% 10% 18%;
+            border-radius: 999px;
+            background: radial-gradient(circle, rgba(126, 184, 165, 0.16), transparent 68%);
+            filter: blur(28px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-mark img {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: min(100%, 30rem);
+            height: auto;
+            margin: 0 auto;
+            opacity: 0.78;
+            filter: saturate(0.9) brightness(0.92);
+            mix-blend-mode: screen;
+        }
+
+        .icon-inline {
+            width: 1em;
+            height: 1em;
+            display: inline-block;
+            vertical-align: -0.12em;
+        }
+
+        .icon-badge {
+            width: 2rem;
+            height: 2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(126, 184, 165, 0.06);
+            color: var(--sea);
+            flex: 0 0 auto;
+        }
+
+        .icon-badge svg,
+        .section-icon svg,
+        .card-icon svg {
+            width: 1.05rem;
+            height: 1.05rem;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .button-row {
             display: flex;
             gap: 0.75rem;
@@ -277,6 +339,12 @@
             border-top: 1px solid var(--line);
         }
 
+        .meta-head {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
         .micro {
             font-size: 0.65rem;
             color: var(--faint);
@@ -321,6 +389,34 @@
             font-size: 0.82rem;
         }
 
+        .signal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .signal-tag {
+            padding: 0.28rem 0.48rem;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(126, 184, 165, 0.06);
+            color: var(--sea);
+            font-size: 0.58rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .signal-board {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .signal-stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+        }
+
         .dial {
             border-radius: 1rem;
             border: 1px solid var(--line);
@@ -347,6 +443,124 @@
             line-height: 1.48;
         }
 
+        .dial em {
+            display: block;
+            margin-top: 0.35rem;
+            font-style: normal;
+            font-size: 0.68rem;
+            color: var(--sea);
+        }
+
+        .chart-card {
+            border-radius: 1rem;
+            border: 1px solid rgba(217, 138, 78, 0.35);
+            background:
+                linear-gradient(180deg, rgba(12, 29, 36, 0.92), rgba(8, 20, 26, 0.96));
+            padding: 0.85rem;
+        }
+
+        .report-strip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding-bottom: 0.55rem;
+            margin-bottom: 0.7rem;
+            border-bottom: 1px solid var(--line);
+            color: var(--faint);
+            font-size: 0.58rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .report-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.2rem 0.38rem;
+            border-radius: 999px;
+            background: rgba(217, 138, 78, 0.12);
+            color: var(--accent);
+        }
+
+        .report-chip::before {
+            content: "";
+            width: 0.32rem;
+            height: 0.32rem;
+            border-radius: 999px;
+            background: currentColor;
+        }
+
+        .chart-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.75rem;
+            align-items: start;
+        }
+
+        .chart-head strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .chart-meta,
+        .chart-note,
+        .chart-axis,
+        .chart-legend {
+            color: var(--faint);
+            font-size: 0.62rem;
+            line-height: 1.45;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .chart-meta {
+            color: var(--sea);
+            white-space: nowrap;
+        }
+
+        .signal-chart {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-top: 0.7rem;
+        }
+
+        .chart-axis {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-top: 0.45rem;
+        }
+
+        .chart-legend span::before {
+            content: "";
+            display: inline-block;
+            width: 0.55rem;
+            height: 0.55rem;
+            margin-right: 0.35rem;
+            border-radius: 999px;
+            vertical-align: middle;
+            background: currentColor;
+        }
+
+        .chart-note {
+            margin-top: 0.55rem;
+            padding-top: 0.55rem;
+            border-top: 1px solid var(--line);
+            text-transform: none;
+            letter-spacing: 0.02em;
+        }
+
         .section {
             padding: 0.8rem 0 0;
         }
@@ -371,6 +585,25 @@
         .section-head h2 {
             font-size: clamp(1.55rem, 3.4vw, 2.5rem);
             letter-spacing: -0.05em;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .section-icon {
+            width: 2.2rem;
+            height: 2.2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(217, 138, 78, 0.08);
+            color: var(--accent);
+            flex: 0 0 auto;
         }
 
         .card-grid {
@@ -410,6 +643,26 @@
 
         .card-full {
             grid-column: span 12;
+        }
+
+        .card-top {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            gap: 0.8rem;
+        }
+
+        .card-icon {
+            width: 2rem;
+            height: 2rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.8rem;
+            border: 1px solid var(--line);
+            background: rgba(126, 184, 165, 0.06);
+            color: var(--sea);
+            flex: 0 0 auto;
         }
 
         .card .index {
@@ -503,6 +756,7 @@
                 min-height: auto;
             }
 
+            .signal-stats,
             .hero-meta,
             .spec-list {
                 grid-template-columns: 1fr;
@@ -554,23 +808,52 @@
                         Pressure-rated signals for uncertain weather. Vague references to <strong>infrastructure</strong>, <strong>automation</strong>, and the useful superstition that well-partitioned systems stay afloat longer.
                     </p>
                     <p class="hero-copy">
-                        Not quite a consultancy. Not quite a product. More a discreet drydock for brittle platforms, strange roadmaps, and teams that suspect the hull should be welded before anyone paints the logo.
+                        Not quite a consultancy. More a discreet drydock for brittle platforms, strange roadmaps, and teams that suspect the hull should be welded before anyone paints the logo.
                     </p>
                     <div class="button-row">
                         <a class="button primary" href="#signals">Read The Signal</a>
                         <a class="button secondary" href="#hull">Inspect The Hull</a>
                     </div>
+                    <div class="hero-mark" aria-hidden="true">
+                        <img src="bulkhead.png" alt="">
+                    </div>
                     <div class="hero-meta">
                         <div class="meta-chip">
-                            <div class="micro">Operating Doctrine</div>
+                            <div class="meta-head">
+                                <span class="icon-badge" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="2.6"></circle>
+                                        <circle cx="12" cy="12" r="6.2"></circle>
+                                        <path d="M12 2.8v3.2M12 18v3.2M2.8 12H6M18 12h3.2M5 5l2.3 2.3M16.7 16.7 19 19M19 5l-2.3 2.3M7.3 16.7 5 19"></path>
+                                    </svg>
+                                </span>
+                                <div class="micro">Operating Doctrine</div>
+                            </div>
                             <div class="meta-value">Assume list, leak, and load. Calm seas are marketing.</div>
                         </div>
                         <div class="meta-chip">
-                            <div class="micro">Preferred Cargo</div>
+                            <div class="meta-head">
+                                <span class="icon-badge" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M6 16V8l6-3 6 3v8l-6 3-6-3Z"></path>
+                                        <path d="M6 8l6 3 6-3M12 11v8"></path>
+                                    </svg>
+                                </span>
+                                <div class="micro">Preferred Cargo</div>
+                            </div>
                             <div class="meta-value">Clusters, runbooks, reproducible state, and AI kept well away from the helm.</div>
                         </div>
                         <div class="meta-chip">
-                            <div class="micro">Current Status</div>
+                            <div class="meta-head">
+                                <span class="icon-badge" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 20V6"></path>
+                                        <path d="M12 6c2.8 0 5.8.5 8 1.8-2.2 1.3-5.2 1.8-8 1.8S6.2 9.1 4 7.8C6.2 6.5 9.2 6 12 6Z"></path>
+                                        <path d="M8.5 20h7"></path>
+                                    </svg>
+                                </span>
+                                <div class="micro">Current Status</div>
+                            </div>
                             <div class="meta-value">Quietly charting routes out of the fog.</div>
                         </div>
                     </div>
@@ -582,22 +865,88 @@
                             <div class="kicker">Signal / Unclear Intent</div>
                             <h2>Seaworthiness for modern stacks.</h2>
                         </div>
-                        <p>
-                            Bulkheads. Compartments. Refits. AI used like an apprentice and never like a drunk captain.
-                        </p>
+                        <div class="signal-tags" aria-label="Signal tags">
+                            <span class="signal-tag">bulkheads</span>
+                            <span class="signal-tag">compartments</span>
+                            <span class="signal-tag">refits</span>
+                            <span class="signal-tag">machine weather</span>
+                            <span class="signal-tag">supervised ai</span>
+                        </div>
                     </div>
-                    <div>
-                        <div class="dial">
-                            <strong>Channel 01</strong>
-                            <span>Obscure guidance for companies with infra they would prefer not to touch.</span>
+                    <div class="signal-board">
+                        <div class="signal-stats">
+                            <div class="dial">
+                                <strong>Flux Index</strong>
+                                <span>3.83</span>
+                                <em>+0.01 vs prior tide</em>
+                            </div>
+                            <div class="dial">
+                                <strong>Hull Coherence</strong>
+                                <span>0.936</span>
+                                <em>stable in rough weather</em>
+                            </div>
+                            <div class="dial">
+                                <strong>Modal Drift</strong>
+                                <span>11.3%</span>
+                                <em>within acceptable roll</em>
+                            </div>
+                            <div class="dial">
+                                <strong>Residual Noise</strong>
+                                <span>0.173</span>
+                                <em>corrected on intake</em>
+                            </div>
                         </div>
-                        <div class="dial">
-                            <strong>Channel 02</strong>
-                            <span>Operational theatre involving logs, clusters, automation, and seawater imagery.</span>
-                        </div>
-                        <div class="dial">
-                            <strong>Channel 03</strong>
-                            <span>Enough startup language to secure a meeting, enough engineering discipline to keep the vessel upright.</span>
+                        <div class="chart-card">
+                            <div class="report-strip">
+                                <span class="report-chip">live feed</span>
+                                <span>Ref: NSU-2026-041</span>
+                                <span>Series IV</span>
+                                <span>Confidence 94.7%</span>
+                            </div>
+                            <div class="chart-head">
+                                <div>
+                                    <strong>North Sea Signal Variance vs. Latency Coefficient</strong>
+                                    <div class="chart-note">Temporal decomposition / 48-period rolling window / live ballast correction</div>
+                                </div>
+                                <div class="chart-meta">streaming</div>
+                            </div>
+                            <svg class="signal-chart" viewBox="0 0 320 180" role="img" aria-label="Abstract signal chart">
+                                <defs>
+                                    <linearGradient id="gridFade" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(255,255,255,0.16)" />
+                                        <stop offset="100%" stop-color="rgba(255,255,255,0.02)" />
+                                    </linearGradient>
+                                </defs>
+                                <rect x="0" y="0" width="320" height="180" fill="none" />
+                                <g stroke="rgba(255,255,255,0.08)" stroke-width="1">
+                                    <line x1="22" y1="24" x2="22" y2="152" />
+                                    <line x1="22" y1="152" x2="302" y2="152" />
+                                    <line x1="22" y1="120" x2="302" y2="120" />
+                                    <line x1="22" y1="88" x2="302" y2="88" />
+                                    <line x1="22" y1="56" x2="302" y2="56" />
+                                    <line x1="90" y1="24" x2="90" y2="152" stroke-dasharray="3 5" />
+                                    <line x1="192" y1="24" x2="192" y2="152" stroke-dasharray="3 5" />
+                                </g>
+                                <polyline fill="none" stroke="#d98a4e" stroke-width="2.6" points="22,42 40,36 58,48 76,44 94,66 112,84 130,102 148,108 166,96 184,84 202,70 220,52 238,40 256,54 274,62 302,68" />
+                                <polyline fill="none" stroke="#7eb8a5" stroke-width="2.2" stroke-dasharray="5 4" points="22,102 40,100 58,96 76,98 94,94 112,90 130,92 148,88 166,78 184,74 202,70 220,66 238,68 256,64 274,66 302,64" />
+                                <polyline fill="none" stroke="#8fb7df" stroke-width="2.1" points="22,116 40,128 58,138 76,144 94,132 112,146 130,124 148,108 166,90 184,80 202,76 220,74 238,72 256,70 274,68 302,67" />
+                                <polyline fill="none" stroke="#b66a98" stroke-width="2.1" points="22,84 40,92 58,104 76,114 94,122 112,126 130,112 148,98 166,86 184,82 202,94 220,112 238,128 256,142 274,140 302,136" />
+                            </svg>
+                            <div class="chart-axis">
+                                <span>t+0</span>
+                                <span>t+8</span>
+                                <span>t+16</span>
+                                <span>t+24</span>
+                                <span>t+32</span>
+                                <span>t+40</span>
+                            </div>
+                            <div class="chart-legend">
+                                <span style="color:#d98a4e;">Flux variance</span>
+                                <span style="color:#8fb7df;">Inverse latency</span>
+                                <span style="color:#b66a98;">Cross-modal index</span>
+                                <span style="color:#7eb8a5;">Residual envelope</span>
+                            </div>
+                            <div class="chart-note">Crossing events at t+14 and t+24 indicate phase realignment under supervised machine weather. Recommend drydock before ornamental repainting.</div>
                         </div>
                     </div>
                 </aside>
@@ -607,43 +956,89 @@
         <main>
             <section class="section" id="drift">
                 <div class="section-head">
-                    <h2>The Drift</h2>
+                    <div class="section-title">
+                        <span class="section-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="5.5"></circle>
+                                <path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4"></path>
+                                <path d="M6.2 6.2 8.8 8.8M15.2 15.2l2.6 2.6M17.8 6.2l-2.6 2.6M8.8 15.2l-2.6 2.6"></path>
+                            </svg>
+                        </span>
+                        <h2>The Drift</h2>
+                    </div>
                     <p>
                         If the architecture feels haunted, the deployment smells improvised, or the AI has been allowed on deck unsupervised, Bulkhead probably recognizes the weather pattern.
                     </p>
                 </div>
                 <div class="card-grid">
                     <article class="card card-wide">
-                        <div>
-                            <div class="index">01 / Drydock</div>
-                            <h3>Refit First.</h3>
+                        <div class="card-top">
+                            <div>
+                                <div class="index">01 / Drydock</div>
+                                <h3>Refit First.</h3>
+                            </div>
+                            <span class="card-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M5 18h14"></path>
+                                    <path d="M7 18V7h10v11"></path>
+                                    <path d="M9 7V5h6v2"></path>
+                                    <path d="M10 11h4M10 14h4"></path>
+                                </svg>
+                            </span>
                         </div>
                         <p>
                             Decorative transformation is not the point. Rust is rust. Strip it, plate it, document the repair, then discuss velocity.
                         </p>
                     </article>
                     <article class="card card-mid">
-                        <div>
-                            <div class="index">02 / Compartment</div>
-                            <h3>Flood One Section, Not The Fleet.</h3>
+                        <div class="card-top">
+                            <div>
+                                <div class="index">02 / Compartment</div>
+                                <h3>Flood One Section, Not The Fleet.</h3>
+                            </div>
+                            <span class="card-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="5" y="5" width="14" height="14" rx="2"></rect>
+                                    <path d="M12 5v14M5 12h14"></path>
+                                    <circle cx="12" cy="12" r="1.5"></circle>
+                                </svg>
+                            </span>
                         </div>
                         <p>
                             Namespaces, trust boundaries, identity, clean interfaces, escape hatches. A vessel without internal walls is just optimism with a website.
                         </p>
                     </article>
                     <article class="card card-half">
-                        <div>
-                            <div class="index">03 / Machine Crew</div>
-                            <h3>AI Rows. Humans Navigate.</h3>
+                        <div class="card-top">
+                            <div>
+                                <div class="index">03 / Machine Crew</div>
+                                <h3>AI Rows. Humans Navigate.</h3>
+                            </div>
+                            <span class="card-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="3.2"></circle>
+                                    <path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4"></path>
+                                    <path d="M5.2 5.2l2.4 2.4M16.4 16.4l2.4 2.4M18.8 5.2l-2.4 2.4M7.6 16.4l-2.4 2.4"></path>
+                                </svg>
+                            </span>
                         </div>
                         <p>
                             Prompt the boilerplate. Generate the drudgery. Audit the output like your insurance depends on it.
                         </p>
                     </article>
                     <article class="card card-half">
-                        <div>
-                            <div class="index">04 / Weather</div>
-                            <h3>Idempotency In A Choppy Sea.</h3>
+                        <div class="card-top">
+                            <div>
+                                <div class="index">04 / Weather</div>
+                                <h3>Idempotency In A Choppy Sea.</h3>
+                            </div>
+                            <span class="card-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M4 15c1.4-1.8 2.8-2.7 4.2-2.7 2.1 0 2.5 2.4 4.6 2.4 1.5 0 2.5-.8 3.8-2.3"></path>
+                                    <path d="M4 19c1.4-1.8 2.8-2.7 4.2-2.7 2.1 0 2.5 2.4 4.6 2.4 1.5 0 2.5-.8 3.8-2.3"></path>
+                                    <path d="M16 8a2.5 2.5 0 1 0-4.8 1"></path>
+                                </svg>
+                            </span>
                         </div>
                         <p>
                             Midnight shell sessions below the waterline are not a process. Repair in code. Repeat cleanly. Sleep.
@@ -654,7 +1049,17 @@
 
             <section class="section" id="signals">
                 <div class="section-head">
-                    <h2>Signals</h2>
+                    <div class="section-title">
+                        <span class="section-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 18c2.5-6.5 5.8-9.8 10.4-12"></path>
+                                <path d="M7.2 18c2.1-4.6 4.9-6.9 8.8-8.8"></path>
+                                <path d="M10.5 18c1.2-2.3 2.9-3.8 5.5-5"></path>
+                                <circle cx="18" cy="6" r="2"></circle>
+                            </svg>
+                        </span>
+                        <h2>Signals</h2>
+                    </div>
                     <p>
                         References to platform engineering, automation, observability, and strategic fog. More specificity would ruin the mood.
                     </p>
@@ -692,15 +1097,34 @@
 
             <section class="section" id="hull">
                 <div class="section-head">
-                    <h2>The Hull</h2>
+                    <div class="section-title">
+                        <span class="section-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 15h16"></path>
+                                <path d="M6 15 8.5 8h7L18 15"></path>
+                                <path d="M8.5 8h7"></path>
+                                <path d="M7.5 18c1 .9 2 1.4 3 1.4S12.5 19 14 18c1 .9 2 1.4 2.5 1.4S18 19 19 18"></path>
+                            </svg>
+                        </span>
+                        <h2>The Hull</h2>
+                    </div>
                     <p>
                         Substrate-first, heavy-duty, open enough to understand, boring enough to trust, sharp enough to matter.
                     </p>
                 </div>
                 <article class="card card-full">
-                    <div>
-                        <div class="index">Bulkhead Stack / Indicative, not contractual</div>
-                        <h3>Steel, Plating, Shipyard, Welder, Engine, Radar.</h3>
+                    <div class="card-top">
+                        <div>
+                            <div class="index">Bulkhead Stack / Indicative, not contractual</div>
+                            <h3>Steel, Plating, Shipyard, Welder, Engine, Radar.</h3>
+                        </div>
+                        <span class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <path d="M12 2.5v3.5M12 18v3.5M2.5 12H6M18 12h3.5"></path>
+                                <path d="M5.2 5.2l2.5 2.5M16.3 16.3l2.5 2.5M18.8 5.2l-2.5 2.5M7.7 16.3l-2.5 2.5"></path>
+                            </svg>
+                        </span>
                     </div>
                     <div class="spec-list">
                         <div class="spec">
