@@ -1,185 +1,744 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulkhead Systems | Seaworthy Infrastructure</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bulkhead: {
-                            deep: '#0a192f',
-                            steel: '#8892b0',
-                            slate: '#112240',
-                            orange: '#ff6b35',
-                            white: '#e6f1ff',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Oswald', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    }
-                }
+    <meta name="description" content="Bulkhead is a mysterious North Sea signal about pressure-rated systems, machine crews, and things that remain upright in bad weather.">
+    <title>Bulkhead | Pressure-Rated Signals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #071116;
+            --bg-deep: #03080b;
+            --panel: rgba(10, 24, 30, 0.7);
+            --panel-strong: rgba(14, 32, 40, 0.88);
+            --text: #e8e2d3;
+            --muted: #a8b1aa;
+            --faint: #6f7b76;
+            --line: rgba(178, 196, 186, 0.16);
+            --accent: #d98a4e;
+            --accent-soft: rgba(217, 138, 78, 0.18);
+            --sea: #7eb8a5;
+            --glow: rgba(126, 184, 165, 0.16);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Azeret Mono", monospace;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(126, 184, 165, 0.12), transparent 28%),
+                radial-gradient(circle at 85% 18%, rgba(217, 138, 78, 0.12), transparent 24%),
+                linear-gradient(180deg, #09151b 0%, var(--bg) 45%, var(--bg-deep) 100%);
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: radial-gradient(circle at center, black 42%, transparent 100%);
+            opacity: 0.35;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.03) 48%, transparent 52%, transparent 100%);
+            animation: sweep 11s linear infinite;
+            opacity: 0.2;
+        }
+
+        @keyframes sweep {
+            from {
+                transform: translateY(-120%);
+            }
+            to {
+                transform: translateY(120%);
             }
         }
-    </script>
-    <style>
-        body {
-            background-color: #020c1b;
-            color: #e6f1ff;
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        .scanline {
-            width: 100%;
-            height: 100px;
-            z-index: 10;
-            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(0,0,0,0) 100%);
-            opacity: 0.1;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .shell {
+            position: relative;
+            width: min(1120px, calc(100% - 2rem));
+            margin: 0 auto;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.25rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 0.72rem;
+            color: var(--muted);
+        }
+
+        .site-mark {
+            font-family: "Syne", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: var(--text);
+        }
+
+        .site-links {
+            display: flex;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .site-links a {
+            transition: color 180ms ease;
+        }
+
+        .site-links a:hover,
+        .site-links a:focus-visible {
+            color: var(--sea);
+        }
+
+        .hero {
+            position: relative;
+            padding: 3rem 0 4rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+            gap: 1.5rem;
+            align-items: stretch;
+        }
+
+        .panel,
+        .signal,
+        .card,
+        .footer-note {
+            border: 1px solid var(--line);
+            background: var(--panel);
+            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow);
+        }
+
+        .panel {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(1.4rem, 2vw, 2rem);
+            border-radius: 1.75rem;
+            min-height: 68vh;
+            animation: rise 700ms ease-out both;
+        }
+
+        .panel::before {
+            content: "";
             position: absolute;
-            bottom: 100%;
-            animation: scanline 10s linear infinite;
+            inset: auto -10% 10% 55%;
+            height: 12rem;
+            border-radius: 999px;
+            background: radial-gradient(circle, var(--glow), transparent 68%);
         }
-        @keyframes scanline {
-            0% { bottom: 100%; }
-            100% { bottom: -100%; }
+
+        .eyebrow,
+        .kicker,
+        .micro {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            color: var(--sea);
+            font-size: 0.72rem;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 2.5rem;
+            height: 1px;
+            background: currentColor;
+            opacity: 0.8;
+        }
+
+        h1,
+        h2,
+        h3 {
+            margin: 0;
+            font-family: "Syne", sans-serif;
+            line-height: 0.94;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-top: 1rem;
+            font-size: clamp(4rem, 11vw, 8.5rem);
+            letter-spacing: -0.06em;
+            max-width: 8ch;
+        }
+
+        .hero-copy {
+            max-width: 42rem;
+            margin-top: 1.4rem;
+            color: var(--muted);
+            font-size: clamp(1.05rem, 2.1vw, 1.34rem);
+            line-height: 1.8;
+        }
+
+        .hero-copy strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .button-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 13rem;
+            padding: 0.95rem 1.15rem;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            transition:
+                transform 180ms ease,
+                border-color 180ms ease,
+                background 180ms ease,
+                color 180ms ease;
+        }
+
+        .button:hover,
+        .button:focus-visible {
+            transform: translateY(-2px);
+            border-color: rgba(217, 138, 78, 0.6);
+        }
+
+        .button.primary {
+            background: linear-gradient(135deg, rgba(217, 138, 78, 0.18), rgba(217, 138, 78, 0.02));
+            color: var(--text);
+        }
+
+        .button.secondary {
+            color: var(--sea);
+            background: rgba(126, 184, 165, 0.06);
+        }
+
+        .hero-meta {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .meta-chip {
+            padding-top: 1rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .micro {
+            font-size: 0.65rem;
+            color: var(--faint);
+        }
+
+        .meta-value {
+            margin-top: 0.45rem;
+            color: var(--text);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .signal {
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            animation: rise 900ms ease-out both;
+        }
+
+        .signal-stack {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .kicker {
+            color: var(--accent);
+            font-size: 0.68rem;
+        }
+
+        .signal h2 {
+            font-size: clamp(1.8rem, 4vw, 2.9rem);
+            margin-top: 0.35rem;
+        }
+
+        .signal p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 0.94rem;
+        }
+
+        .dial {
+            border-radius: 1.2rem;
+            border: 1px solid var(--line);
+            background: var(--panel-strong);
+            padding: 1rem;
+        }
+
+        .dial + .dial {
+            margin-top: 0.9rem;
+        }
+
+        .dial strong {
+            display: block;
+            font-size: 0.76rem;
+            letter-spacing: 0.14em;
+            color: var(--text);
+            text-transform: uppercase;
+            margin-bottom: 0.45rem;
+        }
+
+        .dial span {
+            color: var(--muted);
+            font-size: 0.84rem;
+            line-height: 1.65;
+        }
+
+        .section {
+            padding: 1.5rem 0 0;
+        }
+
+        .section-head {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: end;
+            margin-bottom: 1.25rem;
+        }
+
+        .section-head p {
+            max-width: 34rem;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .section-head h2 {
+            font-size: clamp(2.1rem, 6vw, 4.4rem);
+            letter-spacing: -0.06em;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            border-radius: 1.4rem;
+            padding: 1.2rem;
+            min-height: 15rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+        }
+
+        .card:hover,
+        .card:focus-within {
+            transform: translateY(-4px);
+            border-color: rgba(126, 184, 165, 0.45);
+            background: rgba(13, 31, 38, 0.92);
+        }
+
+        .card-wide {
+            grid-column: span 7;
+        }
+
+        .card-mid {
+            grid-column: span 5;
+        }
+
+        .card-half {
+            grid-column: span 6;
+        }
+
+        .card-full {
+            grid-column: span 12;
+        }
+
+        .card .index {
+            color: var(--accent);
+            font-size: 0.7rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .card h3 {
+            margin-top: 0.8rem;
+            font-size: clamp(1.5rem, 4vw, 2.4rem);
+        }
+
+        .card p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 0.92rem;
+            max-width: 34rem;
+        }
+
+        .spec-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .spec {
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .spec label {
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.66rem;
+            color: var(--faint);
+            margin-bottom: 0.45rem;
+        }
+
+        .spec span {
+            color: var(--text);
+            font-size: 0.86rem;
+            line-height: 1.7;
+        }
+
+        .footer-note {
+            margin: 1.25rem 0 2.5rem;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-note p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 0.88rem;
+        }
+
+        .footer-note strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .status-pill {
+            padding: 0.7rem 0.95rem;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: rgba(126, 184, 165, 0.08);
+            color: var(--sea);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 920px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                min-height: auto;
+            }
+
+            .hero-meta,
+            .spec-list {
+                grid-template-columns: 1fr;
+            }
+
+            .card-wide,
+            .card-mid,
+            .card-half {
+                grid-column: span 12;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .shell {
+                width: min(100% - 1.2rem, 1120px);
+            }
+
+            .site-nav {
+                padding-top: 0.9rem;
+            }
+
+            .button {
+                width: 100%;
+            }
+
+            h1 {
+                max-width: none;
+            }
         }
     </style>
 </head>
-<body class="font-sans antialiased selection:bg-bulkhead-orange selection:text-white">
+<body>
+    <div class="shell">
+        <nav class="site-nav" aria-label="Primary">
+            <a class="site-mark" href="#">Bulkhead</a>
+            <div class="site-links">
+                <a href="#drift">Drift</a>
+                <a href="#signals">Signals</a>
+                <a href="#hull">Hull</a>
+            </div>
+        </nav>
 
-    <!-- Hero Section -->
-    <div class="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-             <!-- Abstract Grid Background -->
-            <div class="absolute inset-0" style="background-image: radial-gradient(#112240 1px, transparent 1px); background-size: 40px 40px; opacity: 0.3;"></div>
-            <div class="scanline"></div>
-        </div>
+        <header class="hero">
+            <div class="hero-grid">
+                <section class="panel">
+                    <span class="eyebrow">North Sea Uplink / Est. 2025</span>
+                    <h1>Bulkhead</h1>
+                    <p class="hero-copy">
+                        Pressure-rated systems for uncertain weather. Freighted with odd signals about <strong>infrastructure</strong>, <strong>machine crews</strong>, and the old nautical superstition that well-partitioned things tend to stay afloat.
+                    </p>
+                    <p class="hero-copy">
+                        Not a consultancy, exactly. Not a studio, exactly. More a discreet drydock for brittle platforms, drift-heavy roadmaps, and founders who suspect the hull should be welded before anyone paints the logo.
+                    </p>
+                    <div class="button-row">
+                        <a class="button primary" href="#signals">Read The Signal</a>
+                        <a class="button secondary" href="#hull">Inspect The Hull</a>
+                    </div>
+                    <div class="hero-meta">
+                        <div class="meta-chip">
+                            <div class="micro">Operating Doctrine</div>
+                            <div class="meta-value">Calm seas are a lie. Design for list, leak, and load.</div>
+                        </div>
+                        <div class="meta-chip">
+                            <div class="micro">Preferred Cargo</div>
+                            <div class="meta-value">K3s murmurs, Ansible rituals, OpenTofu keels, AI deckhands under supervision.</div>
+                        </div>
+                        <div class="meta-chip">
+                            <div class="micro">Current Status</div>
+                            <div class="meta-value">Pre-freelance. Post-certainty. Quietly charting routes out of the fog.</div>
+                        </div>
+                    </div>
+                </section>
 
-        <div class="relative z-10 max-w-4xl w-full">
-            <p class="font-mono text-bulkhead-orange mb-4 tracking-widest text-sm">EST. 2025 // PROJECT ANTIGRAVITY</p>
-            <h1 class="text-6xl md:text-8xl font-bold uppercase tracking-tighter mb-6 text-white leading-none">
-                Bulkhead<br><span class="text-bulkhead-steel">Systems.</span>
-            </h1>
-            <p class="text-xl md:text-2xl text-bulkhead-steel max-w-2xl font-light mb-10 border-l-4 border-bulkhead-orange pl-6">
-                Seaworthy Infrastructure for a Chaotic Ocean. <br>
-                <span class="text-sm font-mono mt-2 block opacity-70">We build Cathedrals of Steel.</span>
+                <aside class="signal" aria-label="Bulkhead signal">
+                    <div class="signal-stack">
+                        <div>
+                            <div class="kicker">Signal / Unclear Intent</div>
+                            <h2>Seaworthiness, but for weird modern stacks.</h2>
+                        </div>
+                        <p>
+                            The references are on purpose. Bulkheads. Compartments. Storm tables. Deterministic refits. AI used like a welder's apprentice and never like a drunk captain.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="dial">
+                            <strong>Channel 01</strong>
+                            <span>Obscure advice for companies with infra they vaguely fear touching.</span>
+                        </div>
+                        <div class="dial">
+                            <strong>Channel 02</strong>
+                            <span>Operational theatre involving logs, clusters, automation, and a suspicious amount of seawater imagery.</span>
+                        </div>
+                        <div class="dial">
+                            <strong>Channel 03</strong>
+                            <span>Enough startup language to alarm adults, enough engineering discipline to keep the vessel upright.</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </header>
+
+        <main>
+            <section class="section" id="drift">
+                <div class="section-head">
+                    <h2>The Drift</h2>
+                    <p>
+                        A concise doctrine for anyone receiving this transmission: if the architecture feels haunted, the deployment smells improvised, or the AI has been allowed on deck unsupervised, Bulkhead probably recognizes the weather pattern.
+                    </p>
+                </div>
+                <div class="card-grid">
+                    <article class="card card-wide">
+                        <div>
+                            <div class="index">01 / Drydock</div>
+                            <h3>Refit First.</h3>
+                        </div>
+                        <p>
+                            We are deeply uninterested in decorative transformation. Rust is not a brand opportunity. It is rust. Strip it, plate it, document the repair, and only then discuss "velocity."
+                        </p>
+                    </article>
+                    <article class="card card-mid">
+                        <div>
+                            <div class="index">02 / Compartment</div>
+                            <h3>Flood One Section, Not The Fleet.</h3>
+                        </div>
+                        <p>
+                            Namespaces, trust boundaries, identity, clean interfaces, escape hatches. A vessel without internal walls is just optimism with a website.
+                        </p>
+                    </article>
+                    <article class="card card-half">
+                        <div>
+                            <div class="index">03 / Machine Crew</div>
+                            <h3>AI Rows. Humans Navigate.</h3>
+                        </div>
+                        <p>
+                            Prompt the boilerplate. Generate the drudgery. Audit the output like your insurance depends on it, because structurally it does.
+                        </p>
+                    </article>
+                    <article class="card card-half">
+                        <div>
+                            <div class="index">04 / Weather</div>
+                            <h3>Idempotency In A Choppy Sea.</h3>
+                        </div>
+                        <p>
+                            The hand that changes production by midnight shell session is the same hand drilling holes below the waterline. Repair in code. Repeat cleanly. Sleep.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="signals">
+                <div class="section-head">
+                    <h2>Signals</h2>
+                    <p>
+                        Broadly speaking, Bulkhead emits references to platform engineering, automation, observability, and strategic fog. More specifically would ruin the mood.
+                    </p>
+                </div>
+                <div class="card-grid">
+                    <article class="card card-half">
+                        <div>
+                            <div class="index">Telemetry</div>
+                            <h3>Read The Waterline.</h3>
+                        </div>
+                        <p>
+                            Logs, traces, metrics, and whatever passed for decision-making during the incident. If it cannot be seen, it cannot be stabilized.
+                        </p>
+                    </article>
+                    <article class="card card-half">
+                        <div>
+                            <div class="index">Orchestration</div>
+                            <h3>Small Engines, Serious Intent.</h3>
+                        </div>
+                        <p>
+                            Lean clusters, repeatable environments, practical substrate choices, and enough mechanical sympathy to keep the deck from rattling apart.
+                        </p>
+                    </article>
+                    <article class="card card-full">
+                        <div>
+                            <div class="index">Commercial Clarity / Deliberately Low</div>
+                            <h3>Available For Strange New Engagement Models.</h3>
+                        </div>
+                        <p>
+                            Fractional infrastructure presence. Founding-stage technical ballast. Short advisory bursts before a launch window. Quiet intervention when the architecture starts speaking in tongues. Labels remain negotiable.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="section" id="hull">
+                <div class="section-head">
+                    <h2>The Hull</h2>
+                    <p>
+                        The old manifesto is still visible through the paint: substrate-first, heavy-duty, open enough to understand, boring enough to trust, sharp enough to matter.
+                    </p>
+                </div>
+                <article class="card card-full">
+                    <div>
+                        <div class="index">Bulkhead Stack / Indicative, not contractual</div>
+                        <h3>Steel, Plating, Shipyard, Welder, Engine, Radar.</h3>
+                    </div>
+                    <div class="spec-list">
+                        <div class="spec">
+                            <label>Steel</label>
+                            <span>KVM and Libvirt, because proper compartmentalization still beats vibes alone.</span>
+                        </div>
+                        <div class="spec">
+                            <label>Plating</label>
+                            <span>Ubuntu LTS, or anything equally uninterested in drama.</span>
+                        </div>
+                        <div class="spec">
+                            <label>Shipyard</label>
+                            <span>OpenTofu laying the keel where cloud poetry becomes reproducible state.</span>
+                        </div>
+                        <div class="spec">
+                            <label>Welder</label>
+                            <span>Ansible applying heat, pressure, and repeatability to awkward reality.</span>
+                        </div>
+                        <div class="spec">
+                            <label>Engine</label>
+                            <span>K3s for compact propulsion and the pleasant sound of lightweight orchestration.</span>
+                        </div>
+                        <div class="spec">
+                            <label>Radar</label>
+                            <span>LGTM-class instrumentation peering through operational fog and startup mythology.</span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+
+        <footer class="footer-note">
+            <p>
+                <strong>Bulkhead.be</strong> is presently a signal flare disguised as a website.
+                If the references feel relevant, the channel is probably open.
             </p>
-            
-            <div class="flex flex-col md:flex-row gap-4 font-mono text-sm">
-                <a href="#manifesto" class="px-8 py-3 border border-bulkhead-orange text-bulkhead-orange hover:bg-bulkhead-orange hover:text-white transition-all duration-300 uppercase tracking-wider">
-                    Read Manifesto
-                </a>
-                <a href="#stack" class="px-8 py-3 border border-bulkhead-steel text-bulkhead-steel hover:bg-bulkhead-slate transition-all duration-300 uppercase tracking-wider">
-                    Inspect The Hull
-                </a>
-            </div>
-        </div>
+            <div class="status-pill">Exit 0, Eventually</div>
+        </footer>
     </div>
-
-    <!-- Manifesto Section -->
-    <section id="manifesto" class="py-20 px-6 bg-bulkhead-slate/30 border-y border-bulkhead-slate">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold uppercase mb-12 flex items-center gap-4">
-                <span class="text-bulkhead-orange">01.</span> The Philosophy
-            </h2>
-            
-            <div class="space-y-12">
-                <!-- Principle 1 -->
-                <div class="group">
-                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">I. The Drydock Standard</h3>
-                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
-                        We treat every session as a refit. If we board a server, we leave it structurally sounder than we found it. Technical debt is rust; we do not paint over it. We grind it down and weld it shut.
-                    </p>
-                </div>
-
-                <!-- Principle 2 -->
-                <div class="group">
-                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">II. Managed Mutation</h3>
-                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
-                        The Code is the Captain. We never fix a server manually via SSH. Idempotency is Law. We do not burn down the ship to fix a leaking pipe; we use Ansible to apply precise, idempotent repairs.
-                    </p>
-                </div>
-
-                <!-- Principle 3 -->
-                <div class="group">
-                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">III. Compartmentalization</h3>
-                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
-                        A ship without bulkheads is a coffin. Isolation via KVM. Containment via Namespaces. Identity via Authentik. No one enters the engine room without SSO.
-                    </p>
-                </div>
-
-                <!-- Principle 4 -->
-                 <div class="group">
-                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">IV. Architecture First</h3>
-                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
-                        We are the Architects; AI is the Workforce. We define the Intent and the Vibe. We review every line against the "Purist" standard. We do not commit what we do not understand.
-                    </p>
-                </div>
-
-                <!-- Principle 5 -->
-                <div class="group">
-                    <h3 class="text-2xl text-white mb-2 font-mono group-hover:text-bulkhead-orange transition-colors">V. Documentation is the Blueprint</h3>
-                    <p class="text-bulkhead-steel leading-relaxed max-w-2xl">
-                        If the README is outdated, the code is broken. If it's not in an ADR, it didn't happen. Documentation is the primary artifact.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- The Stack Section -->
-    <section id="stack" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl font-bold uppercase mb-12 flex items-center gap-4">
-                <span class="text-bulkhead-orange">02.</span> The Hull
-            </h2>
-            <p class="text-bulkhead-steel mb-8 font-mono">Substrate-First. Open Standards. Heavy Duty.</p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Card -->
-                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
-                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Steel (Substrate)</div>
-                    <div class="text-xl font-bold text-white">KVM / Libvirt</div>
-                </div>
-
-                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
-                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Plating (OS)</div>
-                    <div class="text-xl font-bold text-white">Ubuntu 24.04</div>
-                </div>
-
-                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
-                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Shipyard (Provisioning)</div>
-                    <div class="text-xl font-bold text-white">OpenTofu</div>
-                </div>
-
-                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
-                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Welder (Config)</div>
-                    <div class="text-xl font-bold text-white">Ansible</div>
-                </div>
-
-                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
-                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Engine (Orchestration)</div>
-                    <div class="text-xl font-bold text-white">K3s</div>
-                </div>
-
-                <div class="p-6 border border-bulkhead-slate hover:border-bulkhead-orange transition-colors bg-bulkhead-deep">
-                    <div class="text-xs font-mono text-bulkhead-orange mb-2 uppercase">The Radar (Observability)</div>
-                    <div class="text-xl font-bold text-white">LGTM Stack</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-bulkhead-slate mt-12 text-center">
-        <p class="font-mono text-sm text-bulkhead-steel">
-            EXIT ZERO. <br>
-            <span class="opacity-50">Signed, The Architect.</span>
-        </p>
-    </footer>
-
 </body>
 </html>
