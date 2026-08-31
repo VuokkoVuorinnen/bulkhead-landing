@@ -3,719 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bulkhead Systems builds calm, automated, seaworthy infrastructure for teams that care about operational excellence.">
-    <title>Bulkhead | Seaworthy Infrastructure</title>
+    <meta name="description" content="Bulkhead Systems builds cathedrals of steel for a chaotic digital ocean. Architecture first. Vibecoding second.">
+    <meta name="theme-color" content="#080b0a">
+    <title>Bulkhead Systems — Cathedrals of Steel</title>
     <script defer src="https://umami.vuokko.be/script.js" data-website-id="bafc7c90-559b-4a86-a007-2335a064b9b1"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #f7f5ef;
-            --surface: #ffffff;
-            --ink: #101412;
-            --muted: #66706a;
-            --faint: #8a938d;
-            --line: #ddd8ce;
-            --line-dark: #c8c1b5;
-            --sea: #0f6f68;
-            --brass: #a66a2d;
-            --shadow: 0 24px 80px rgba(16, 20, 18, 0.08);
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --void: #080b0a;
+            --hull: #0d1110;
+            --plate: #181f1c;
+            --signal: #c6ff00;
+            --flare: #ff5c1b;
+            --paper: #e9ece5;
+            --muted: #929b93;
+            --line: rgba(233, 236, 229, 0.14);
+            --mono: "DM Mono", monospace;
+            --sans: "Manrope", sans-serif;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; scrollbar-color: var(--signal) var(--void); }
         body {
-            position: relative;
             margin: 0;
-            min-height: 100vh;
-            color: var(--ink);
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: var(--bg);
+            overflow-x: hidden;
+            background: var(--void);
+            color: var(--paper);
+            font-family: var(--sans);
+            -webkit-font-smoothing: antialiased;
         }
 
         body::before {
-            content: "";
             position: fixed;
             inset: 0;
-            z-index: -1;
+            z-index: 20;
             pointer-events: none;
-            background: url("9fde4849-c7f8-44e2-8ff3-b2adb1b4e2fd.png") center top / cover no-repeat;
-            opacity: 0.3;
-            filter: grayscale(1) contrast(0.9);
+            content: "";
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
+        a { color: inherit; text-decoration: none; }
+        :focus-visible { outline: 2px solid var(--signal); outline-offset: 4px; }
+        h1, h2, h3, p { margin: 0; }
+        .mono { font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+
+        .status-bar {
+            display: flex;
+            height: 34px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0 clamp(1rem, 3vw, 3rem);
+            background: var(--signal);
+            color: #0b0e0a;
+            font: 500 .65rem/1 var(--mono);
+            letter-spacing: .08em;
+            text-transform: uppercase;
         }
 
-        .shell {
-            width: min(1120px, calc(100% - 2rem));
-            margin: 0 auto;
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            margin-right: .5rem;
+            border-radius: 50%;
+            background: currentColor;
+            animation: blink 1.7s steps(2) infinite;
         }
 
         .nav {
+            position: absolute;
+            top: 34px;
+            left: 0;
+            z-index: 10;
             display: flex;
+            width: 100%;
             align-items: center;
             justify-content: space-between;
-            gap: 1rem;
-            margin-top: 1rem;
-            padding: 0.85rem 1rem;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            background: var(--card-bg);
-            box-shadow: 0 16px 50px rgba(16, 20, 18, 0.06);
-            backdrop-filter: blur(18px);
+            padding: 1.25rem clamp(1rem, 3vw, 3rem);
+            border-bottom: 1px solid rgba(255,255,255,.13);
+            background: linear-gradient(180deg, rgba(8,11,10,.8), transparent);
         }
 
-        .brand {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.65rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
+        .brand { display: inline-flex; align-items: center; gap: .8rem; font-weight: 800; letter-spacing: -.04em; }
         .brand-mark {
-            width: 2rem;
-            height: 2rem;
-            border: 1px solid var(--line-dark);
-            border-radius: 50%;
+            position: relative;
             display: grid;
+            width: 34px;
+            height: 34px;
             place-items: center;
-            background: var(--surface);
-        }
-
-        .brand-mark::before {
-            content: "";
-            width: 0.9rem;
-            height: 0.9rem;
-            border: 2px solid var(--sea);
+            border: 1px solid var(--signal);
             border-radius: 50%;
-            box-shadow: inset 0 0 0 3px var(--surface);
-            background: var(--sea);
         }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .nav-links a {
-            transition: color 160ms ease;
-        }
-
-        .nav-links a:hover,
-        .nav-links a:focus-visible {
-            color: var(--ink);
-        }
+        .brand-mark::before, .brand-mark::after { position: absolute; content: ""; background: var(--signal); }
+        .brand-mark::before { width: 18px; height: 2px; box-shadow: 0 -6px 0 -1px var(--signal), 0 6px 0 -1px var(--signal); }
+        .brand-mark::after { width: 2px; height: 24px; }
+        .nav-links { display: flex; align-items: center; gap: clamp(1.2rem, 3vw, 3rem); font: 400 .68rem/1 var(--mono); text-transform: uppercase; }
+        .nav-links a:hover { color: var(--signal); }
+        .nav-cta { padding: .65rem .85rem; border: 1px solid var(--signal); color: var(--signal); }
 
         .hero {
-            display: grid;
-            grid-template-columns: minmax(0, 1.04fr) minmax(320px, 0.96fr);
-            gap: clamp(2rem, 5vw, 4.5rem);
-            align-items: stretch;
-            min-height: calc(100vh - 5.4rem);
-            padding: 4rem 0 5rem;
-        }
-
-        .copy-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 31rem;
-            padding: clamp(1.35rem, 3vw, 2.4rem);
-            border: 1px solid var(--line);
-            border-radius: 32px;
-            background: var(--card-bg);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.55rem;
-            color: var(--sea);
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.11em;
-            text-transform: uppercase;
-        }
-
-        .eyebrow::before {
-            content: "";
-            width: 1.65rem;
-            height: 1px;
-            background: currentColor;
-        }
-
-        h1,
-        h2,
-        h3,
-        p {
-            margin: 0;
-        }
-
-        h1 {
-            margin-top: 1rem;
-            max-width: 9.6ch;
-            font-size: clamp(4rem, 10vw, 7.7rem);
-            line-height: 0.88;
-            letter-spacing: -0.075em;
-        }
-
-        .lead {
-            max-width: 39rem;
-            margin-top: 1.35rem;
-            color: var(--muted);
-            font-size: clamp(1.08rem, 1.8vw, 1.3rem);
-            line-height: 1.55;
-            letter-spacing: -0.02em;
-        }
-
-        .lead strong {
-            color: var(--ink);
-            font-weight: 600;
-        }
-
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-top: 2rem;
-        }
-
-        .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 3rem;
-            padding: 0 1.1rem;
-            border: 1px solid var(--line-dark);
-            border-radius: 999px;
-            background: var(--surface);
-            color: var(--ink);
-            font-size: 0.92rem;
-            font-weight: 700;
-            box-shadow: 0 8px 30px rgba(16, 20, 18, 0.05);
-            transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-        }
-
-        .button:hover,
-        .button:focus-visible {
-            transform: translateY(-1px);
-            border-color: var(--ink);
-        }
-
-        .button.primary {
-            border-color: var(--ink);
-            background: var(--ink);
-            color: #fffaf0;
-        }
-
-        .visual {
             position: relative;
-            align-self: stretch;
-            min-height: 31rem;
-            border: 1px solid var(--line);
-            border-radius: 32px;
-            background:
-                linear-gradient(180deg, rgba(15, 111, 104, 0.08), transparent 42%),
-                rgba(255, 255, 255, 0.92);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
+            display: flex;
+            min-height: min(920px, calc(100svh - 34px));
+            align-items: flex-end;
             overflow: hidden;
+            border-bottom: 1px solid var(--line);
+            background: #07100e url("cathedral-of-steel.png") center / cover no-repeat;
+            isolation: isolate;
         }
 
-        .visual::before {
+        .hero::before {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
             content: "";
+            background: linear-gradient(90deg, rgba(8,11,10,.98), rgba(8,11,10,.82) 32%, rgba(8,11,10,.12) 76%), linear-gradient(0deg, rgba(8,11,10,.98), transparent 58%);
+        }
+
+        .hero::after {
             position: absolute;
-            inset: 1rem;
-            border: 1px solid rgba(16, 20, 18, 0.08);
-            border-radius: 20px;
+            inset: 0;
+            z-index: -1;
+            content: "";
+            opacity: .22;
+            background-image: linear-gradient(rgba(198,255,0,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(198,255,0,.12) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: linear-gradient(90deg, black, transparent 55%);
         }
 
-        .blueprint {
-            position: absolute;
-            inset: 8%;
-            display: grid;
-            place-items: center;
-        }
+        .hero-copy { width: min(1380px, 100%); margin: 0 auto; padding: 10rem clamp(1rem, 4vw, 4.5rem) clamp(3rem, 7vh, 5.5rem); }
+        .hero-label { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.4rem; color: var(--signal); font: 500 .72rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+        .hero-label::before { width: 42px; height: 1px; content: ""; background: currentColor; }
+        h1 { max-width: 900px; font-size: clamp(4rem, 10vw, 9.2rem); font-weight: 800; line-height: .78; letter-spacing: -.085em; text-transform: uppercase; }
+        h1 em { display: block; color: transparent; font-style: normal; -webkit-text-stroke: 1px rgba(233,236,229,.72); }
+        .hero-bottom { display: grid; max-width: 1000px; grid-template-columns: 1.2fr .8fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: end; margin-top: 2.2rem; }
+        .hero-lead { color: #c4cbc3; font-size: clamp(1rem, 1.5vw, 1.25rem); line-height: 1.55; }
+        .hero-lead strong { color: var(--paper); }
+        .hero-actions { display: flex; flex-wrap: wrap; gap: .7rem; }
+        .button { display: inline-flex; min-height: 46px; align-items: center; justify-content: center; gap: .8rem; padding: 0 1rem; border: 1px solid rgba(233,236,229,.45); font: 500 .68rem/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; transition: .16s ease; }
+        .button::after { content: "↗"; font-size: 1rem; }
+        .button:hover { transform: translateY(-2px); background: var(--paper); color: var(--void); }
+        .button.primary { border-color: var(--signal); background: var(--signal); color: var(--void); }
+        .hero-index { position: absolute; right: clamp(1rem,3vw,3rem); bottom: 2rem; display: grid; gap: .35rem; color: rgba(233,236,229,.56); font: 400 .62rem/1.5 var(--mono); text-align: right; text-transform: uppercase; }
 
-        .blueprint svg {
-            width: 100%;
-            height: auto;
-            overflow: visible;
-        }
+        .ticker { overflow: hidden; background: var(--paper); color: var(--void); }
+        .ticker-track { display: flex; width: max-content; animation: crawl 24s linear infinite; }
+        .ticker p { padding: .8rem 0; font: 500 clamp(.72rem,1vw,.85rem)/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+        .ticker b { padding: 0 1.2rem; color: var(--flare); }
 
-        .readout {
-            position: absolute;
-            left: 1.1rem;
-            right: 1.1rem;
-            bottom: 1.1rem;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.65rem;
-        }
+        .section { max-width: 1380px; margin: 0 auto; padding: clamp(5rem,10vw,9rem) clamp(1rem,4vw,4.5rem); }
+        .section-tag { display: flex; justify-content: space-between; margin-bottom: clamp(2rem,5vw,4rem); padding-bottom: .8rem; border-bottom: 1px solid var(--line); color: var(--signal); font: 500 .68rem/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+        .section-tag span:last-child { color: var(--muted); }
+        h2 { max-width: 1100px; font-size: clamp(3rem,7.4vw,7.1rem); font-weight: 800; line-height: .9; letter-spacing: -.075em; text-transform: uppercase; }
+        .outline { color: transparent; -webkit-text-stroke: 1px rgba(233,236,229,.55); }
+        .manifesto-intro { display: grid; grid-template-columns: .55fr 1.45fr; gap: clamp(2rem,8vw,8rem); margin: 3rem 0 clamp(3rem,7vw,6rem); }
+        .aside { color: var(--muted); font: 400 .7rem/1.7 var(--mono); text-transform: uppercase; }
+        .statement { max-width: 780px; color: #c5ccc4; font-size: clamp(1.25rem,2.3vw,2rem); line-height: 1.45; letter-spacing: -.035em; }
+        .statement strong { color: var(--paper); }
 
-        .stat {
-            min-height: 5.4rem;
-            padding: 0.8rem;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.82);
-            backdrop-filter: blur(10px);
-        }
+        .doctrines { display: grid; grid-template-columns: repeat(12,1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+        .doctrine { position: relative; display: flex; min-height: 370px; grid-column: span 4; flex-direction: column; justify-content: space-between; overflow: hidden; padding: clamp(1.2rem,2.5vw,2rem); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--hull); transition: background .2s ease; }
+        .doctrine:nth-child(4), .doctrine:nth-child(5) { grid-column: span 6; }
+        .doctrine:hover { background: var(--plate); }
+        .doctrine::after { position: absolute; right: -1rem; bottom: -3rem; color: rgba(233,236,229,.025); content: attr(data-number); font: 800 12rem/1 var(--sans); letter-spacing: -.1em; }
+        .doctrine-number { color: var(--signal); font: 500 .67rem/1 var(--mono); }
+        h3 { position: relative; z-index: 1; max-width: 12ch; font-size: clamp(1.8rem,3vw,3.2rem); line-height: .95; letter-spacing: -.06em; text-transform: uppercase; }
+        .doctrine p { position: relative; z-index: 1; max-width: 42ch; color: var(--muted); font-size: .92rem; line-height: 1.65; }
 
-        .stat b {
-            display: block;
-            font-size: 1.35rem;
-            letter-spacing: -0.04em;
-        }
+        .operations-wrap { border-block: 1px solid var(--line); background: #0a0e0d; }
+        .operations-grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); }
+        .shift { position: relative; min-height: 540px; padding: clamp(1.5rem,4vw,3.5rem); overflow: hidden; }
+        .shift + .shift { border-left: 1px solid var(--line); }
+        .shift.refit { background: var(--paper); color: var(--void); }
+        .shift.watch { background: radial-gradient(circle at 70% 35%, rgba(198,255,0,.08), transparent 30%), var(--hull); }
+        .shift-time { font: 500 clamp(3rem,8vw,7.8rem)/.8 var(--mono); letter-spacing: -.08em; }
+        .shift-name { margin-top: 1.5rem; font-size: clamp(2rem,5vw,5rem); font-weight: 800; line-height: .9; letter-spacing: -.07em; text-transform: uppercase; }
+        .shift p { position: absolute; right: clamp(1.5rem,4vw,3.5rem); bottom: clamp(1.5rem,4vw,3.5rem); max-width: 30ch; font-size: 1rem; line-height: 1.6; }
+        .watch p { color: var(--muted); }
+        .watch-clock { position: absolute; bottom: -.2em; left: -.04em; color: rgba(198,255,0,.07); font: 500 clamp(8rem,22vw,20rem)/.7 var(--mono); letter-spacing: -.12em; white-space: nowrap; }
+        .instrument-panel { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--line); border-top: 0; }
+        .instrument { min-height: 145px; padding: 1.25rem; border-right: 1px solid var(--line); }
+        .instrument:last-child { border: 0; }
+        .instrument b { display: block; color: var(--signal); font: 500 clamp(2rem,4vw,4rem)/1 var(--mono); letter-spacing: -.08em; }
+        .instrument span { display: block; margin-top: .85rem; color: var(--muted); font: 400 .62rem/1.5 var(--mono); text-transform: uppercase; }
 
-        .stat span {
-            display: block;
-            margin-top: 0.25rem;
-            color: var(--muted);
-            font-size: 0.78rem;
-            line-height: 1.35;
-        }
+        .stack-layout { display: grid; grid-template-columns: minmax(260px,.7fr) 1.3fr; gap: clamp(2rem,7vw,7rem); align-items: start; }
+        .stack-sticky { position: sticky; top: 2rem; }
+        .stack-sticky p { max-width: 38ch; margin-top: 1.8rem; color: var(--muted); line-height: 1.7; }
+        .stack-list { border-top: 1px solid var(--line); }
+        .stack-row { display: grid; grid-template-columns: 3rem 1fr 1fr; gap: 1rem; align-items: center; min-height: 104px; border-bottom: 1px solid var(--line); transition: .16s ease; }
+        .stack-row:hover { padding-left: .7rem; color: var(--signal); }
+        .stack-row .index, .stack-row span:last-child { color: var(--muted); font: 400 .64rem/1.5 var(--mono); text-transform: uppercase; }
+        .stack-row strong { font-size: clamp(1.4rem,2.8vw,2.4rem); letter-spacing: -.05em; }
 
-        .section {
-            padding: 5rem 0;
-        }
+        .declaration { border-block: 1px solid var(--line); background: var(--flare); color: var(--void); }
+        .declaration-inner { display: grid; max-width: 1380px; min-height: 700px; grid-template-columns: 1.3fr .7fr; gap: 3rem; align-items: center; margin: auto; padding: clamp(5rem,10vw,9rem) clamp(1rem,4vw,4.5rem); }
+        blockquote { margin: 0; font-size: clamp(3.5rem,8vw,8rem); font-weight: 800; line-height: .85; letter-spacing: -.08em; text-transform: uppercase; }
+        blockquote span { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--void); }
+        .signature { align-self: end; padding-bottom: .6rem; font: 500 .7rem/1.7 var(--mono); text-transform: uppercase; }
+        .signature strong { display: block; margin-top: 1rem; font: 800 1.8rem/1 var(--sans); letter-spacing: -.05em; text-transform: none; }
 
-        .section-head {
-            display: grid;
-            grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
-            gap: 2rem;
-            align-items: end;
-            margin-bottom: 2rem;
-            padding: clamp(1.25rem, 2.6vw, 2rem);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            background: var(--card-bg);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
-        }
+        .exit { position: relative; min-height: 88svh; display: grid; place-items: center; overflow: hidden; padding: 6rem 1rem; text-align: center; background: radial-gradient(circle, rgba(198,255,0,.13), transparent 25%), var(--void); }
+        .exit::before, .exit::after { position: absolute; width: min(68vw,720px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; content: ""; }
+        .exit::after { width: min(52vw,550px); border-color: rgba(198,255,0,.5); box-shadow: 0 0 90px rgba(198,255,0,.08), inset 0 0 90px rgba(198,255,0,.04); }
+        .exit-copy { position: relative; z-index: 1; }
+        .exit .mono { color: var(--signal); font-size: .68rem; }
+        .exit h2 { margin: 1rem auto 2rem; font-size: clamp(7rem,26vw,25rem); line-height: .7; letter-spacing: -.12em; }
+        .exit p { max-width: 620px; margin: auto; color: var(--muted); font-size: clamp(1rem,2vw,1.3rem); line-height: 1.6; }
+        .exit p strong { color: var(--paper); }
+        footer { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; padding: 1.4rem clamp(1rem,3vw,3rem); border-top: 1px solid var(--line); color: var(--muted); font: 400 .62rem/1.5 var(--mono); text-transform: uppercase; }
+        footer span:nth-child(2) { color: var(--paper); }
+        footer span:last-child { text-align: right; }
 
-        .kicker {
-            color: var(--brass);
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            margin-bottom: 0.7rem;
-        }
-
-        h2 {
-            max-width: 10ch;
-            font-size: clamp(2.6rem, 5vw, 4.7rem);
-            line-height: 0.93;
-            letter-spacing: -0.065em;
-        }
-
-        .section-head p {
-            color: var(--muted);
-            font-size: 1.03rem;
-            line-height: 1.7;
-            letter-spacing: -0.01em;
-        }
-
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1rem;
-        }
-
-        .card {
-            min-height: 21rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 1.3rem;
-            border: 1px solid var(--line);
-            border-radius: 24px;
-            background: var(--card-bg);
-            box-shadow: 0 20px 60px rgba(16, 20, 18, 0.045);
-            backdrop-filter: blur(18px);
-        }
-
-        .number {
-            color: var(--sea);
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-        }
-
-        h3 {
-            margin-top: 0.8rem;
-            font-size: clamp(1.55rem, 2.8vw, 2.35rem);
-            line-height: 1;
-            letter-spacing: -0.055em;
-        }
-
-        .card p {
-            color: var(--muted);
-            font-size: 0.96rem;
-            line-height: 1.65;
-        }
-
-        .split {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) minmax(300px, 0.8fr);
-            gap: 1rem;
-        }
-
-        .panel {
-            padding: clamp(1.3rem, 3vw, 2rem);
-            border: 1px solid var(--line);
-            border-radius: 28px;
-            background: var(--card-bg);
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
-        }
-
-        .panel.large {
-            min-height: 28rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .panel p {
-            color: var(--muted);
-            font-size: 1rem;
-            line-height: 1.72;
-        }
-
-        .quote {
-            color: var(--ink);
-            font-size: clamp(2rem, 4.2vw, 4rem);
-            line-height: 0.98;
-            letter-spacing: -0.065em;
-            font-weight: 800;
-        }
-
-        .list {
-            display: grid;
-            gap: 0.75rem;
-            margin-top: 1.4rem;
-        }
-
-        .item {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            padding-top: 0.9rem;
-            border-top: 1px solid var(--line);
-            color: var(--muted);
-            font-size: 0.92rem;
-            line-height: 1.4;
-        }
-
-        .item strong {
-            color: var(--ink);
-            font-weight: 700;
-        }
-
-        .stack {
-            display: grid;
-            grid-template-columns: repeat(6, minmax(0, 1fr));
-            gap: 0.7rem;
-        }
-
-        .stack span {
-            min-height: 5.4rem;
-            display: flex;
-            align-items: end;
-            padding: 0.9rem;
-            border: 1px solid rgba(16, 20, 18, 0.16);
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.96);
-            color: var(--ink);
-            font-size: 0.82rem;
-            font-weight: 800;
-            box-shadow: 0 18px 48px rgba(16, 20, 18, 0.11);
-            backdrop-filter: blur(18px);
-        }
-
-        .stack span:nth-child(odd) {
-            color: var(--sea);
-            border-color: rgba(15, 111, 104, 0.22);
-            background: rgba(255, 255, 255, 0.98);
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin: 1rem 0 2rem;
-            padding: 1rem 1.15rem;
-            border: 1px solid var(--line);
-            border-radius: 24px;
-            background: var(--card-bg);
-            color: var(--muted);
-            font-size: 0.9rem;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(18px);
-        }
+        @keyframes blink { 50% { opacity: .35; } }
+        @keyframes crawl { to { transform: translateX(-50%); } }
 
         @media (max-width: 900px) {
-            .hero,
-            .section-head,
-            .split {
-                grid-template-columns: 1fr;
-            }
-
-            .hero {
-                min-height: auto;
-                padding-top: 3rem;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                min-height: 16rem;
-            }
-
-            .stack {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
+            .nav-links a:not(.nav-cta) { display: none; }
+            .hero { min-height: 820px; background-position: 62% center; }
+            .hero::before { background: linear-gradient(0deg,rgba(8,11,10,.99),rgba(8,11,10,.65) 60%,rgba(8,11,10,.25)); }
+            .hero-bottom, .manifesto-intro, .stack-layout, .declaration-inner { grid-template-columns: 1fr; }
+            .doctrine { grid-column: span 6; }
+            .doctrine:nth-child(5) { grid-column: span 12; }
+            .operations-grid { grid-template-columns: 1fr; }
+            .shift + .shift { border-top: 1px solid var(--line); border-left: 0; }
+            .instrument-panel { grid-template-columns: 1fr 1fr; }
+            .instrument:nth-child(2) { border-right: 0; }
+            .instrument:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+            .stack-sticky { position: static; }
+            .declaration-inner { min-height: 620px; }
         }
 
         @media (max-width: 620px) {
-            .shell {
-                width: min(100% - 1.1rem, 1120px);
-            }
+            .status-bar span:nth-child(2), .hero-index, .nav-cta { display: none; }
+            .status-bar { justify-content: center; }
+            .hero { min-height: 760px; }
+            h1 { font-size: clamp(3.5rem,19vw,5.5rem); }
+            .doctrine, .doctrine:nth-child(4), .doctrine:nth-child(5) { min-height: 320px; grid-column: span 12; }
+            .shift { min-height: 430px; }
+            .stack-row { grid-template-columns: 2rem 1fr; }
+            .stack-row span:last-child { display: none; }
+            footer { grid-template-columns: 1fr 1fr; }
+            footer span:nth-child(2) { display: none; }
+        }
 
-            .nav {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .nav-links {
-                width: 100%;
-                justify-content: space-between;
-                gap: 0.75rem;
-                font-size: 0.82rem;
-            }
-
-            h1 {
-                font-size: clamp(3.7rem, 18vw, 5.2rem);
-            }
-
-            .visual {
-                min-height: 27rem;
-            }
-
-            .readout {
-                grid-template-columns: 1fr;
-            }
-
-            .actions,
-            .button {
-                width: 100%;
-            }
-
-            .stack {
-                grid-template-columns: 1fr 1fr;
-            }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .ticker-track, .status-dot { animation: none; }
         }
     </style>
 </head>
 <body>
-    <div class="shell">
-        <nav class="nav" aria-label="Primary">
-            <a class="brand" href="#">
-                <span class="brand-mark" aria-hidden="true"></span>
-                <span>Bulkhead</span>
-            </a>
-            <div class="nav-links">
-                <a href="#philosophy">Philosophy</a>
-                <a href="#operations">Operations</a>
-                <a href="#stack">Stack</a>
-            </div>
-        </nav>
-
-        <header class="hero">
-            <section class="copy-card">
-                <span class="eyebrow">Seaworthy infrastructure</span>
-                <h1>Leave it cleaner.</h1>
-                <p class="lead">
-                    Bulkhead is a quiet operating philosophy for infrastructure: <strong>automate the useful things</strong>, document the decisions, reduce drift, and keep the vessel calm when the weather changes.
-                </p>
-                <div class="actions">
-                    <a class="button primary" href="#philosophy">Read the philosophy</a>
-                    <a class="button" href="#operations">See the operating model</a>
-                </div>
-            </section>
-
-            <section class="visual" aria-label="Abstract bulkhead wireframe">
-                <div class="blueprint" aria-hidden="true">
-                    <svg viewBox="0 0 620 420">
-                        <defs>
-                            <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-                                <path d="M24 0H0V24" fill="none" stroke="#e3ded5" stroke-width="1"/>
-                            </pattern>
-                        </defs>
-                        <rect width="620" height="420" fill="url(#grid)" opacity="0.9"/>
-                        <path d="M58 236 C126 172 218 142 331 148 C438 154 518 188 568 236 C525 284 442 315 326 314 C211 313 122 284 58 236Z" fill="none" stroke="#101412" stroke-width="3"/>
-                        <path d="M112 236 H516" stroke="#101412" stroke-width="2"/>
-                        <path d="M180 175 V303 M246 158 V313 M314 149 V315 M382 158 V313 M450 177 V302" stroke="#0f6f68" stroke-width="3"/>
-                        <path d="M180 175 C198 190 198 288 180 303 M246 158 C265 183 265 288 246 313 M314 149 C334 181 334 286 314 315 M382 158 C402 184 402 288 382 313 M450 177 C468 195 468 283 450 302" fill="none" stroke="#0f6f68" stroke-width="1.5"/>
-                        <circle cx="314" cy="232" r="42" fill="none" stroke="#a66a2d" stroke-width="2"/>
-                        <circle cx="314" cy="232" r="19" fill="none" stroke="#a66a2d" stroke-width="2"/>
-                        <path d="M272 232H356 M314 190V274" stroke="#a66a2d" stroke-width="2"/>
-                        <path d="M98 260 H522 M136 282 H484 M208 204 H421" stroke="#101412" stroke-width="1.2" opacity="0.45"/>
-                        <path d="M80 336 H540" stroke="#101412" stroke-width="2"/>
-                        <path d="M126 336 L165 306 M494 336 L455 306" stroke="#101412" stroke-width="1.4"/>
-                        <text x="66" y="94" fill="#101412" font-size="18" font-family="Inter, sans-serif" font-weight="700">BULKHEAD SECTION</text>
-                        <text x="66" y="122" fill="#66706a" font-size="13" font-family="Inter, sans-serif">cutaway / compartments / drydock reference</text>
-                        <text x="424" y="94" fill="#0f6f68" font-size="13" font-family="Inter, sans-serif" font-weight="700">EXIT 0 EVENTUALLY</text>
-                    </svg>
-                </div>
-                <div class="readout">
-                    <div class="stat">
-                        <b>0.936</b>
-                        <span>hull coherence</span>
-                    </div>
-                    <div class="stat">
-                        <b>3</b>
-                        <span>HA control planes</span>
-                    </div>
-                    <div class="stat">
-                        <b>0</b>
-                        <span>manual fixes desired</span>
-                    </div>
-                </div>
-            </section>
-        </header>
-
-        <main>
-            <section class="section" id="philosophy">
-                <div class="section-head">
-                    <div>
-                        <div class="kicker">Philosophy</div>
-                        <h2>The drydock standard.</h2>
-                    </div>
-                    <p>
-                        Every visit should make the system easier to trust. The boyscout rule applies to code, clusters, scripts, runbooks, dashboards, and the small operational rituals people forget to name.
-                    </p>
-                </div>
-
-                <div class="cards">
-                    <article class="card">
-                        <div>
-                            <div class="number">01</div>
-                            <h3>Leave it cleaner.</h3>
-                        </div>
-                        <p>Technical debt is rust. Do not paint over it. Remove a little, document the repair, and make the next pass easier.</p>
-                    </article>
-
-                    <article class="card">
-                        <div>
-                            <div class="number">02</div>
-                            <h3>Automate pragmatically.</h3>
-                        </div>
-                        <p>Automate the recurring, risky, and boring. Leave room for judgment. Not every rope needs a platform team.</p>
-                    </article>
-
-                    <article class="card">
-                        <div>
-                            <div class="number">03</div>
-                            <h3>Compartmentalize.</h3>
-                        </div>
-                        <p>A breach in one section should not sink the fleet. Boundaries, identity, and clear ownership are operational kindness.</p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section" id="operations">
-                <div class="split">
-                    <article class="panel large">
-                        <div>
-                            <div class="kicker">Operations</div>
-                            <p class="quote">Excellence is a quiet pager.</p>
-                        </div>
-                        <p>
-                            Bulkhead favors boring systems, explicit decisions, and automation that earns its keep. AI can generate the boilerplate, but the human stays responsible for the hull.
-                        </p>
-                    </article>
-
-                    <article class="panel">
-                        <div class="kicker">Operating model</div>
-                        <div class="list">
-                            <div class="item">
-                                <strong>Refit</strong>
-                                <span>Reduce drift, improve docs, harden the path.</span>
-                            </div>
-                            <div class="item">
-                                <strong>Watch</strong>
-                                <span>Observe calmly. Respond deliberately.</span>
-                            </div>
-                            <div class="item">
-                                <strong>Captain</strong>
-                                <span>Code defines the vessel. Git keeps the chart.</span>
-                            </div>
-                            <div class="item">
-                                <strong>Crew</strong>
-                                <span>AI assists. Humans verify.</span>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section" id="stack">
-                <div class="section-head">
-                    <div>
-                        <div class="kicker">Hull</div>
-                        <h2>Built from boring steel.</h2>
-                    </div>
-                    <p>
-                        The stack is substrate-first and intentionally legible: virtualization, declarative provisioning, configuration management, orchestration, observability, and identity.
-                    </p>
-                </div>
-
-                <div class="stack" aria-label="Bulkhead stack">
-                    <span>KVM / Libvirt</span>
-                    <span>Ubuntu LTS</span>
-                    <span>OpenTofu</span>
-                    <span>Ansible</span>
-                    <span>K3s</span>
-                    <span>ArgoCD</span>
-                    <span>LGTM</span>
-                    <span>Authentik</span>
-                    <span>GitOps</span>
-                    <span>ADRs</span>
-                    <span>Runbooks</span>
-                    <span>Exit 0</span>
-                </div>
-            </section>
-        </main>
-
-        <footer class="footer">
-            <span>Bulkhead Systems</span>
-            <span>Seaworthy infrastructure. Cleaner campsites. Calmer operations.</span>
-        </footer>
+    <div class="status-bar" role="status">
+        <span><i class="status-dot"></i>All compartments nominal</span>
+        <span>Bulkhead OS // Antigravity cluster // Brussels sector</span>
+        <span id="watch-time">UTC+02:00</span>
     </div>
+
+    <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Bulkhead Systems home"><span class="brand-mark" aria-hidden="true"></span><span>Bulkhead Systems</span></a>
+        <div class="nav-links"><a href="#doctrine">Doctrine</a><a href="#operations">Operations</a><a href="#hull">The Hull</a><a class="nav-cta" href="#exit">Request clearance</a></div>
+    </nav>
+
+    <header class="hero" id="top">
+        <div class="hero-copy">
+            <div class="hero-label">Seaworthy infrastructure for a chaotic ocean</div>
+            <h1>Cathedrals <em>of steel.</em></h1>
+            <div class="hero-bottom">
+                <p class="hero-lead">We don’t build servers. We reinforce the hull of civilization with <strong>deterministic infrastructure, weaponized documentation, and AI-generated YAML reviewed by an adult.</strong></p>
+                <div class="hero-actions"><a class="button primary" href="#doctrine">Enter drydock</a><a class="button" href="#hull">Inspect hull</a></div>
+            </div>
+        </div>
+        <div class="hero-index" aria-hidden="true"><span>BS / 2025—∞</span><span>Class: pre-incubation</span><span>Build: extremely serious</span></div>
+    </header>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker-track">
+        <p>Architecture first <b>✦</b> Vibecoding second <b>✦</b> Technical debt is rust <b>✦</b> The code is the captain <b>✦</b> Documentation is the blueprint <b>✦</b> Exit zero eventually <b>✦</b></p>
+        <p>Architecture first <b>✦</b> Vibecoding second <b>✦</b> Technical debt is rust <b>✦</b> The code is the captain <b>✦</b> Documentation is the blueprint <b>✦</b> Exit zero eventually <b>✦</b></p>
+    </div></div>
+
+    <main>
+        <section class="section" id="doctrine">
+            <div class="section-tag"><span>01 // The doctrine</span><span>Ratified by the Architect</span></div>
+            <h2>Entropy is the <span class="outline">enemy.</span></h2>
+            <div class="manifesto-intro">
+                <p class="aside">Bulkhead Systems BV<br>Established 2025<br>Pre-incubation<br>Post-common-sense</p>
+                <p class="statement">The digital ocean is corrosive. It eats undocumented systems, erodes manual configuration, and sinks companies running on “good enough.” <strong>We build for structural integrity.</strong></p>
+            </div>
+            <div class="doctrines">
+                <article class="doctrine" data-number="01"><span class="doctrine-number">Doctrine 01</span><h3>The drydock standard</h3><p>Every session is a refit. We grind down the rust, weld the seam, update the blueprint, and leave the vessel sounder than we found it.</p></article>
+                <article class="doctrine" data-number="02"><span class="doctrine-number">Doctrine 02</span><h3>Managed mutation</h3><p>Code is the captain. We may debug in the shell, but we fix in the repo. If the second run changes anything, the first run was not finished.</p></article>
+                <article class="doctrine" data-number="03"><span class="doctrine-number">Doctrine 03</span><h3>Contain the blast</h3><p>A ship without bulkheads is a coffin. Isolation is kindness. Boundaries are survival. One namespace does not get to sink the fleet.</p></article>
+                <article class="doctrine" data-number="04"><span class="doctrine-number">Doctrine 04</span><h3>Architecture first. Vibecoding second.</h3><p>We define the intent and the vibe. The tireless silicon workforce generates the boilerplate. The human reviews every line and accepts every consequence.</p></article>
+                <article class="doctrine" data-number="05"><span class="doctrine-number">Doctrine 05</span><h3>The blueprint is the product</h3><p>If the README is outdated, the code is broken. If the decision is not recorded, it did not happen. Infrastructure is merely documentation made executable.</p></article>
+            </div>
+        </section>
+
+        <section class="operations-wrap" id="operations"><div class="section">
+            <div class="section-tag"><span>02 // Operational doctrine</span><span>Two modes. No drift.</span></div>
+            <div class="operations-grid">
+                <article class="shift refit"><div class="shift-time">09—11</div><div class="shift-name">The refit</div><p>Two hours of deep work. Patch the steel. Reduce the debt. Upgrade the stack. This is where value is created.</p></article>
+                <article class="shift watch"><div class="shift-time">11—17</div><div class="shift-name">The watch</div><div class="watch-clock" id="large-clock" aria-hidden="true">00:00</div><p>Monitor. Incubate. Respond without panic. Keep the lights on while preparing for the next voyage.</p></article>
+            </div>
+            <div class="instrument-panel" aria-label="Operating metrics">
+                <div class="instrument"><b>01</b><span>Architect<br>human headcount</span></div>
+                <div class="instrument"><b>∞</b><span>AI interns<br>emotionally available</span></div>
+                <div class="instrument"><b>03</b><span>Control planes<br>because HA means HA</span></div>
+                <div class="instrument"><b>0</b><span>Manual fixes<br>tolerated in production</span></div>
+            </div>
+        </div></section>
+
+        <section class="section" id="hull">
+            <div class="section-tag"><span>03 // The hull</span><span>Substrate first // Open source only</span></div>
+            <div class="stack-layout">
+                <div class="stack-sticky"><h2>Boring tools. <span class="outline">Holy purpose.</span></h2><p>No ephemeral trend stack. No proprietary trapdoors. Just open standards, heavy machinery, explicit decisions, and the faint smell of hot metal.</p></div>
+                <div class="stack-list">
+                    <div class="stack-row"><span class="index">01</span><strong>KVM / Libvirt</strong><span>The steel // isolation layer</span></div>
+                    <div class="stack-row"><span class="index">02</span><strong>Ubuntu 24.04</strong><span>The plating // unshakeable</span></div>
+                    <div class="stack-row"><span class="index">03</span><strong>OpenTofu</strong><span>The shipyard // lays the keel</span></div>
+                    <div class="stack-row"><span class="index">04</span><strong>Ansible</strong><span>The welder // heat + pressure</span></div>
+                    <div class="stack-row"><span class="index">05</span><strong>K3s × 3</strong><span>The engine // highly available</span></div>
+                    <div class="stack-row"><span class="index">06</span><strong>ArgoCD</strong><span>The captain // fights drift</span></div>
+                    <div class="stack-row"><span class="index">07</span><strong>LGTM</strong><span>The radar // through the fog</span></div>
+                    <div class="stack-row"><span class="index">08</span><strong>Authentik</strong><span>The bridge // clearance required</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="declaration"><div class="declaration-inner">
+            <blockquote>We are the architects.<span>AI is the workforce.</span></blockquote>
+            <div class="signature">Prompts as code.<br>Intent before implementation.<br>Trust, then verify aggressively.<strong>— The Architect</strong></div>
+        </div></section>
+
+        <section class="exit" id="exit"><div class="exit-copy">
+            <span class="mono">Final operational objective</span><h2>EXIT 0</h2><p>Success. No errors. No drift. The Architect disappears for weeks and returns to find the system <strong>humming in perfect harmony.</strong></p>
+        </div></section>
+    </main>
+
+    <footer><span>© 2025—∞ Bulkhead Systems BV</span><span>Seaworthy infrastructure</span><span>Brussels sector // 50.8503° N</span></footer>
+
+    <script>
+        const watchTime = document.querySelector("#watch-time");
+        const largeClock = document.querySelector("#large-clock");
+        function updateClock() {
+            const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Brussels", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).format(new Date());
+            watchTime.textContent = `BRU ${time}`;
+            largeClock.textContent = time.slice(0, 5);
+        }
+        updateClock();
+        window.setInterval(updateClock, 1000);
+    </script>
 </body>
 </html>
