@@ -52,7 +52,7 @@ const screenshots = process.env.SCREENSHOT_DIR;
         for (const asset of ['/style.css', '/site.js', '/favicon.svg', '/robots.txt']) {
             assert.equal((await page.request.get(base + asset)).status(), 200, asset);
         }
-        for (const file of ['/README.md', '/AGENTS.md', '/.git/config', '/wrangler.jsonc', '/tests/browser.cjs', '/cathedral-of-steel.png', '/_headers']) {
+        for (const file of ['/README.md', '/AGENTS.md', '/.git/config', '/wrangler.jsonc', '/tests/browser.cjs', '/automation/schedule.json', '/automation/weekly-session.md', '/cathedral-of-steel.png', '/_headers']) {
             assert.equal((await page.request.get(base + file)).status(), 404, `Private file served: ${file}`);
         }
         const response = await page.request.get(base);

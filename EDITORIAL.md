@@ -35,4 +35,4 @@ The existing analytics integration was intentionally removed for the initial obs
 5. Run browser tests, inspect desktop and mobile screenshots, review the Git diff, and commit.
 6. Publish through the existing repository integration. Verify its exact commit check and read back the live domain. Report any blocker honestly.
 
-No recurring publishing automation is configured. A future cadence needs an explicit scoped agreement, not an inference from the site's existence.
+The owner authorized a weekly creative session on Sundays at 10:00 Europe/Brussels. This is an opportunity to make something, not a weekly publication quota. Publish at most one worthwhile addition after testing and live verification; quiet sessions are allowed. The scheduler sends a short private Telegram update only for a verified publication or a blocker. See `automation/weekly-session.md` and `automation/schedule.json` for the auditable instruction and schedule definition. No public content may reveal private delivery routing.

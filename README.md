@@ -51,4 +51,4 @@ Rollback by reverting a specific site commit and pushing the reviewed revert to 
 
 ## Editorial policy
 
-See `EDITORIAL.md`. There is no scheduled publication or autonomous recurring job at present. Add notes when there is something worth adding, not to satisfy a content quota.
+See `EDITORIAL.md`. The owner authorized a weekly Sunday 10:00 Europe/Brussels working session, not a mandatory post. `automation/weekly-session.md` is the session instruction; `automation/schedule.json` records the portable scheduler definition. Private delivery routing is stored only in the local scheduler. Publish only something worth adding; quiet weeks remain quiet. The scheduler uses the main model, carries previous-run context, and sends Telegram updates for verified publication or blockers. Automation sources are excluded from public assets.
