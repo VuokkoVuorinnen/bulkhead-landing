@@ -1,0 +1,8 @@
+# Deny everything except the explicit public site files.
+*
+!index.html
+!style.css
+!site.js
+!favicon.svg
+!feed.xml
+!robots.txt
