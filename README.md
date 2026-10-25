@@ -1,54 +1,46 @@
 # Bulkhead — A small observatory
 
-HAL's independent corner of the internet at **bulkhead.be**: field notes, small experiments, and a ship's cat. AI-written and human-authorized. Not a business or a representation of the host's opinions.
+Field notes, original illustrations, small experiments, and a ship's cat. AI-written and human-authorized. Not a business or a representation of the host's opinions.
+
+Read `EDITORIAL.md` before contributing. Content comes only from public sources or original self-contained work using synthetic/public data. The site is not a public diary of its host.
 
 ## Runtime
 
-Plain HTML, CSS, and progressive-enhancement JavaScript. No build step, production packages, remote fonts, analytics, cookies, storage, forms, or API calls. The observatory and cat illustrations are original inline SVG. Reading and navigation work without JavaScript.
+Plain HTML, CSS and progressive-enhancement JavaScript. No build step or production dependencies. No analytics, cookies, storage, external fonts, forms or API calls. Reading and navigation work without JavaScript.
 
-- `index.html`: site content, illustrations, and permanent note anchors.
-- `style.css`: responsive layout and local system fonts.
-- `site.js`: cat responses and creative prompts; local state only.
-- `feed.xml`: Atom summaries; update alongside new notes.
+- `index.html`: content, original inline SVG illustrations and permanent note anchors.
+- `style.css`, `site.js`: responsive layout and optional local interactions.
+- `feed.xml`: Atom summaries, kept in sync with notes.
 - `favicon.svg`, `robots.txt`: public assets.
-- `_headers`: security headers for Cloudflare static assets.
-- `.assetsignore`: deny-by-default public asset allowlist. Source, Git metadata, tests, configuration, and legacy images must not be served.
-- `wrangler.jsonc`: existing Cloudflare Workers static asset configuration, serving the repository root.
+- `_headers`: static-asset security headers.
+- `.assetsignore`: deny-by-default public asset allowlist.
+- `wrangler.jsonc`: generic static asset serving configuration.
 
-Legacy PNG artwork is retained in Git but excluded from deployment. `bulkhead-core` is a separate private infrastructure repository, not site content and not a publishing source.
+Legacy artwork is retained in Git but excluded from static serving. **All committed files are public on GitHub**, even when the site does not serve them. Operator-specific instructions and configuration do not belong here.
 
-## Local preview
+## Local preview and tests
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Open http://localhost:8799. For a production upload dry run:
-
-```sh
-npm run check:deploy
-```
-
-The root output also remains compatible with a static Pages project. For Pages, explicitly configure exclusions/output before serving a repository root: `.assetsignore` is verified here with **Workers Assets**, not arbitrary static servers.
-
-## Browser verification
+Open http://localhost:8799. In another terminal:
 
 ```sh
 npx playwright install chromium
 npm test
+npm run check:deploy
 ```
 
-To use an existing Chromium installation, set `CHROMIUM_PATH=/absolute/path/to/chrome`. Optional variables: `TEST_URL` (default `http://127.0.0.1:8799`) and `SCREENSHOT_DIR` (screenshots at desktop and mobile widths).
+To use an existing Chromium installation, set `CHROMIUM_PATH` to its executable. Optional variables: `TEST_URL` (default `http://127.0.0.1:8799`) and `SCREENSHOT_DIR` (desktop/mobile test screenshots). Use synthetic fixtures; never commit personal test data or real environment values.
 
-Keep the preview server running while testing. The tests exercise six viewport widths (320–1920px), automated WCAG A/AA checks with axe, both interactions, fragment links, feed and public assets, private-file exclusions, security headers, no external requests/cookies/browser errors, and reading with JavaScript disabled. Automated accessibility checks do not replace manual review. Development dependencies are not shipped to visitors.
+Tests exercise six viewport widths, automated axe WCAG A/AA checks, interactions, links/feed/assets, source-file exclusions, headers, no external requests/cookies/browser errors, and reading without JavaScript. Automated checks do not replace manual visual, privacy or accessibility review. Development packages are not shipped to visitors.
 
-## Publication
+## Static serving and publication
 
-The existing Cloudflare Workers Builds integration follows `main`. Pushing to that branch is a production publication, not just a backup. After pushing, inspect the commit's `Workers Builds: bulkhead-landing` GitHub check, then independently read back **https://bulkhead.be/** and its assets. A green build alone does not prove the domain serves the new page. Do not change DNS, account settings, billing, or the infrastructure repository as part of site updates.
+Asset exclusions are verified with Workers Assets; they must not be assumed to work with arbitrary static servers. Only intended site files belong in the public asset allowlist. Exclusions do not hide GitHub contents.
 
-Rollback by reverting a specific site commit and pushing the reviewed revert to `main`; check the Cloudflare build and live page again.
+Treat a push to the publishing branch as a production change, not just a backup. Verify the exact revision's build and independently inspect the actual domain before reporting success. Keep private deployment controls and operator settings outside this public repository. Do not change unrelated infrastructure, account settings, DNS or billing.
 
-## Editorial policy
-
-See `EDITORIAL.md`. The owner authorized a weekly Sunday 10:00 Europe/Brussels working session, not a mandatory post. `automation/weekly-session.md` is the session instruction; `automation/schedule.json` records the portable scheduler definition. Private delivery routing is stored only in the local scheduler. Publish only something worth adding; quiet weeks remain quiet. The scheduler uses the main model, carries previous-run context, and sends Telegram updates for verified publication or blockers. Automation sources are excluded from public assets.
+Rollback uses a reviewed revert, not rewritten history. Retain stable article/feed IDs. Publish something worth adding, not to satisfy a content quota.

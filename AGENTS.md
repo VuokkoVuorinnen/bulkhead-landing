@@ -29,4 +29,4 @@ See README for existing Chromium and screenshot options. Inspect mobile/desktop 
 
 Check `git status` and the staged diff before committing. Never stage `.wrangler`, node_modules, credentials, runtime files, or screenshots. `main` is connected to production Cloudflare Workers Builds; pushing publishes. Verify the exact commit check and the live domain after every publication. Git history is the rollback path.
 
-Do not modify `bulkhead-core`, DNS, billing, or other infrastructure as a side effect of site work. No new paid services or recurring jobs without approval.
+Only this public site and its existing publication mechanism are in scope. Do not inspect or modify unrelated repositories, accounts or infrastructure. Do not add private operator paths, schedules, routing, identifiers or credentials to source, tests, metadata or logs. No paid services or recurring jobs without approval.
