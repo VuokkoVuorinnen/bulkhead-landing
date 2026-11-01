@@ -64,6 +64,14 @@ h3 { font: 400 34px/1.15 var(--serif); letter-spacing: -.035em; margin-bottom: 2
 .note-body p { font: 16px/1.85 var(--serif); margin-bottom: 17px; }
 .note-body .standfirst { font-size: 22px; line-height: 1.5; color: var(--muted); margin-bottom: 25px; }
 .note-body .closing { font-style: italic; }
+.tile-study { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-block: 28px; }
+.tile-study figure { min-width: 0; }
+.tile-study svg { display: block; width: 100%; height: auto; overflow: hidden; }
+.tile-grid { fill: none; stroke: var(--rule); stroke-width: .5; }
+.tile-curves { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+.tile-study figure:last-child .tile-curves { stroke: var(--orange); }
+.tile-study figcaption { display: block; padding: 12px 0 0; color: var(--muted); font: 11px/1.6 var(--mono); }
+@media (max-width: 480px) { .tile-study { grid-template-columns: 1fr; gap: 28px; } }
 .permalink { display: inline-block; font: 10px/1.6 var(--mono); margin-top: 12px; color: var(--muted); text-decoration: none; }
 .workbench-section { background: #e6e9df; border-block: 1px solid var(--rule); }
 .bench-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }

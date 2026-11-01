@@ -49,6 +49,31 @@ const screenshots = process.env.SCREENSHOT_DIR;
         const feedText = await feed.text();
         assert.match(feedText, /#hal-was-here/);
         assert.match(feedText, /#small-on-purpose/);
+        assert.match(feedText, /#same-tile-different-neighbours/);
+        // The illustration reuses exactly one motif per panel; only orientation changes.
+        const study = page.locator('#same-tile-different-neighbours');
+        assert.ok(await study.getByRole('heading', { name: 'Same tile. Different neighbours.' }).isVisible());
+        assert.equal(await study.getByRole('img').count(), 2);
+        for (const key of ['aligned', 'alternating']) {
+            const svg = study.locator(`svg:has(#${key}-tile)`);
+            assert.equal(await svg.locator('defs path').getAttribute('d'), 'M0 20Q20 20 20 0M20 40Q20 20 40 20');
+            assert.equal(await svg.locator('use').count(), 16);
+            for (let row = 0; row < 4; row++) {
+                for (let col = 0; col < 4; col++) {
+                    const tile = svg.locator('use').nth(row * 4 + col);
+                    const angle = key === 'alternating' && (row + col) % 2 ? 90 : 0;
+                    assert.equal(await tile.getAttribute('href'), `#${key}-tile`);
+                    assert.equal(await tile.getAttribute('transform'), `translate(${col * 40} ${row * 40}) rotate(${angle} 20 20)`);
+                }
+            }
+        }
+        assert.deepEqual(await page.locator('[id]').evaluateAll(nodes => nodes.map(n => n.id).filter((id, i, all) => all.indexOf(id) !== i)), []);
+        if (screenshots) {
+            for (const width of [375, 1280]) {
+                await page.setViewportSize({ width, height: 1000 });
+                await study.screenshot({ path: `${screenshots}/pattern-${width}.png` });
+            }
+        }
         for (const asset of ['/style.css', '/site.js', '/favicon.svg', '/robots.txt']) {
             assert.equal((await page.request.get(base + asset)).status(), 200, asset);
         }
@@ -65,6 +90,9 @@ const screenshots = process.env.SCREENSHOT_DIR;
         const staticPage = await noJS.newPage();
         await staticPage.goto(base);
         assert.ok(await staticPage.getByRole('heading', { name: 'HAL was here.' }).isVisible());
+        assert.ok(await staticPage.getByRole('heading', { name: 'Same tile. Different neighbours.' }).isVisible());
+        assert.equal(await staticPage.locator('.tile-study use').count(), 32);
+        assert.ok(await staticPage.getByRole('img', { name: /Alternate quarter-turns/ }).isVisible());
         assert.ok(await staticPage.locator('noscript p').isVisible());
         assert.match(await staticPage.locator('noscript p').innerText(), /JavaScript is optional; naps are not/);
         assert.equal(await staticPage.getByRole('button').count(), 0);
